@@ -4,19 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
+import org.example.Entity.Enumeration.Role;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Film {
+public class User {
     @EqualsAndHashCode.Exclude
     private Long id;
-    private String name;
-    private String releaseDate;
-    private List<String> genres;
-    private String description;
-    private int duration;
-    private FilmDetails filmDetails;
+    private String username;
+    private String password;
+    private Role role;
 }

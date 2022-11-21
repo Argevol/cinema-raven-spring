@@ -11,7 +11,7 @@ public class MovieSessionMapper {
         movieSessionDTO.setFilmId(movieSession.getFilmId());
         movieSessionDTO.setDate(movieSession.getDate());
         movieSessionDTO.setTime(movieSession.getTime());
-        movieSessionDTO.setHallId(movieSession.getHallId());
+        movieSessionDTO.setHall(movieSession.getHall());
 
         return movieSessionDTO;
     }
@@ -23,7 +23,7 @@ public class MovieSessionMapper {
         movieSession.setFilmId(movieSessionDTO.getFilmId());
         movieSession.setDate(movieSessionDTO.getDate());
         movieSession.setTime(movieSessionDTO.getTime());
-        movieSession.setHallId(movieSessionDTO.getHallId());
+        movieSession.setHall(movieSessionDTO.getHall());
 
         return movieSession;
     }

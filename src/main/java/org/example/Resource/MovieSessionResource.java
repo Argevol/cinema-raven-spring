@@ -15,29 +15,34 @@ public class MovieSessionResource {
     @Autowired
     private MovieSessionService movieSessionService;
 
-    @GetMapping
-    public ResponseEntity<List<MovieSessionDTO>> getAllMovieSessions() {
-        return ResponseEntity.ok().body(movieSessionService.getAllMovieSessions());
+    @GetMapping("/{role}/{username}/{password}")
+    public ResponseEntity<List<MovieSessionDTO>> getAllMovieSessions(@PathVariable final String role, @PathVariable final String username,
+                                                                     @PathVariable final String password) {
+        return ResponseEntity.ok().body(movieSessionService.getAllMovieSessions(role, username, password));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<MovieSessionDTO> getMovieSessionById(@PathVariable final Long id) {
-        return ResponseEntity.ok().body(movieSessionService.getMovieSessionById(id));
+    @GetMapping("/{role}/{username}/{password}/{id}")
+    public ResponseEntity<MovieSessionDTO> getMovieSessionById(@PathVariable final String role, @PathVariable final String username,
+                                                               @PathVariable final String password, @PathVariable final Long id) {
+        return ResponseEntity.ok().body(movieSessionService.getMovieSessionById(role, username, password, id));
     }
 
-    @PostMapping
-    public ResponseEntity<MovieSessionDTO> saveMovieSession(@RequestBody @Validated final MovieSessionDTO movieSessionDTO) {
-        return ResponseEntity.ok().body(movieSessionService.saveMovieSession(movieSessionDTO));
+    @PostMapping("/{username}/{accessKey}")
+    public ResponseEntity<MovieSessionDTO> saveMovieSession(@PathVariable final String username, @PathVariable final String accessKey,
+                                                            @RequestBody @Validated final MovieSessionDTO movieSessionDTO) {
+        return ResponseEntity.ok().body(movieSessionService.saveMovieSession(username, accessKey, movieSessionDTO));
     }
 
-    @PutMapping
-    public ResponseEntity<MovieSessionDTO> updateAllMovieSession(@RequestBody @Validated final MovieSessionDTO movieSessionDTO) {
-        return ResponseEntity.ok().body(movieSessionService.updateAllMovieSession(movieSessionDTO));
+    @PutMapping("/{username}/{accessKey}")
+    public ResponseEntity<MovieSessionDTO> updateAllMovieSession(@PathVariable final String username, @PathVariable final String accessKey,
+                                                                 @RequestBody @Validated final MovieSessionDTO movieSessionDTO) {
+        return ResponseEntity.ok().body(movieSessionService.updateAllMovieSession(username, accessKey, movieSessionDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMovieSessionById(@PathVariable final Long id) {
-        movieSessionService.deleteMovieSessionById(id);
+    @DeleteMapping("/{username}/{accessKey}/{id}")
+    public ResponseEntity<?> deleteMovieSessionById(@PathVariable final String username, @PathVariable final String accessKey,
+                                                    @PathVariable final Long id) {
+        movieSessionService.deleteMovieSessionById(username, accessKey, id);
         return ResponseEntity.ok().build();
     }
 }

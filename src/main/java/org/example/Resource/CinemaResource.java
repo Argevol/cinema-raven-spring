@@ -15,30 +15,34 @@ public class CinemaResource {
     @Autowired
     private CinemaService cinemaService;
 
-    @GetMapping
-    public ResponseEntity<List<CinemaDTO>> getAllMovieSessions() {
-        return ResponseEntity.ok().body(cinemaService.getAllCinemas());
+    @GetMapping("/{role}/{username}/{password}")
+    public ResponseEntity<List<CinemaDTO>> getAllMovieSessions(@PathVariable final String role, @PathVariable final String username,
+                                                               @PathVariable final String password) {
+        return ResponseEntity.ok().body(cinemaService.getAllCinemas(role, username, password));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CinemaDTO> getCinemaById(@PathVariable final Long id) {
-        return ResponseEntity.ok().body(cinemaService.getCinemaById(id));
+    @GetMapping("/{role}/{username}/{password}/{id}")
+    public ResponseEntity<CinemaDTO> getCinemaById(@PathVariable final String role, @PathVariable final String username,
+                                                   @PathVariable final String password, @PathVariable final Long id) {
+        return ResponseEntity.ok().body(cinemaService.getCinemaById(role, username, password, id));
     }
 
-    @PostMapping
-    public ResponseEntity<CinemaDTO> saveCinema(@RequestBody @Validated final CinemaDTO cinemaDTO) {
-        return ResponseEntity.ok().body(cinemaService.saveCinema(cinemaDTO));
+    @PostMapping("/{username}/{accessKey}")
+    public ResponseEntity<CinemaDTO> saveCinema(@PathVariable final String username, @PathVariable final String accessKey,
+                                                @RequestBody @Validated final CinemaDTO cinemaDTO) {
+        return ResponseEntity.ok().body(cinemaService.saveCinema(username, accessKey, cinemaDTO));
     }
 
-    @PutMapping
-    public ResponseEntity<CinemaDTO> updateAllCinema(@RequestBody @Validated final CinemaDTO cinemaDTO) {
-        return ResponseEntity.ok().body(cinemaService.updateAllCinema(cinemaDTO));
+    @PutMapping("/{username}/{accessKey}")
+    public ResponseEntity<CinemaDTO> updateAllCinema(@PathVariable final String username, @PathVariable final String accessKey,
+                                                     @RequestBody @Validated final CinemaDTO cinemaDTO) {
+        return ResponseEntity.ok().body(cinemaService.updateAllCinema(username, accessKey, cinemaDTO));
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCinemaById(@PathVariable final Long id) {
-        cinemaService.deleteCinemaById(id);
+    @DeleteMapping("/{username}/{accessKey}/{id}")
+    public ResponseEntity<?> deleteCinemaById(@PathVariable final String username, @PathVariable final String accessKey,
+                                              @PathVariable final Long id) {
+        cinemaService.deleteCinemaById(username, accessKey, id);
         return ResponseEntity.ok().build();
-
     }
 }

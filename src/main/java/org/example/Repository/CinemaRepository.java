@@ -36,7 +36,7 @@ public class CinemaRepository {
                 return;
             }
 
-            final long maxId = cinemas.stream().mapToLong(Cinema::getId).max().orElse(1);
+            final long maxId = cinemas.stream().mapToLong(Cinema::getId).max().orElse(-1);
 
             this.id = maxId + 1;
 

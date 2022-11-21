@@ -4,22 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.example.Entity.Enumeration.Role;
 
 import javax.validation.constraints.NotNull;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MovieSessionDTO {
+public class AdministratorDTO {
     @EqualsAndHashCode.Exclude
     private Long id;
     @NotNull
-    private Long filmId;
-    @DateTimeFormat(pattern = "dd.MM")
-    private String date;
-    @DateTimeFormat(pattern = "HH:mm")
-    private String time;
+    private String username;
     @NotNull
-    private String hall;
+    private String password;
+    @NotNull
+    private String accessKey;
+    private Role role;
 }

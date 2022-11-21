@@ -2,17 +2,19 @@ package org.example.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Cinema {
+    @EqualsAndHashCode.Exclude
     private Long id;
     private String name;
     private String city;
-    private Map<Long, List<Long>> mapOfAllFilmSessions;
+    private HashMap<Long, List<Long>> mapOfAllFilmSessions;
 }

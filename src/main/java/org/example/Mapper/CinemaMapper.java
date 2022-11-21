@@ -9,6 +9,7 @@ public class CinemaMapper {
 
         cinemaDTO.setId(cinema.getId());
         cinemaDTO.setName(cinema.getName());
+        cinemaDTO.setCity(cinema.getCity());
         cinemaDTO.setMapOfAllFilmSessions(cinema.getMapOfAllFilmSessions());
 
         return cinemaDTO;
@@ -19,6 +20,7 @@ public class CinemaMapper {
 
         cinema.setId(cinemaDTO.getId());
         cinema.setName(cinemaDTO.getName());
+        cinema.setCity(cinemaDTO.getCity());
         cinema.setMapOfAllFilmSessions(cinemaDTO.getMapOfAllFilmSessions());
 
         return cinema;

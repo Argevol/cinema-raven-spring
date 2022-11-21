@@ -2,18 +2,21 @@ package org.example.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.example.Entity.Enumeration.Role;
 
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HallDTO {
+public class UserDTO {
+    @EqualsAndHashCode.Exclude
     private Long id;
     @NotNull
-    private String name;
+    private String username;
     @NotNull
-    private List<Long> films;
+    private String password;
+    private Role role;
 }

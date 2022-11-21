@@ -37,7 +37,7 @@ public class MovieSessionRepository {
                 return;
             }
 
-            final long maxId = movieSessions.stream().mapToLong(MovieSession::getId).max().orElse(1);
+            final long maxId = movieSessions.stream().mapToLong(MovieSession::getId).max().orElse(-1);
 
             this.id = maxId + 1;
 
@@ -88,7 +88,7 @@ public class MovieSessionRepository {
         saved.setFilmId(movieSession.getFilmId());
         saved.setDate(movieSession.getDate());
         saved.setTime(movieSession.getTime());
-        saved.setHallId(movieSession.getHallId());
+        saved.setHall(movieSession.getHall());
 
         return saved;
     }

@@ -2,6 +2,7 @@ package org.example.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.example.Entity.FilmDetails;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -15,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FilmDTO {
+    @EqualsAndHashCode.Exclude
     private Long id;
     @NotNull
     private String name;
@@ -25,7 +27,7 @@ public class FilmDTO {
     @NotNull
     private String description;
     @Min(90)
-    @Max(180)
+    @Max(210)
     private int duration;
     private FilmDetails filmDetails;
 }
