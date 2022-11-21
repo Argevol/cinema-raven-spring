@@ -3,10 +3,10 @@ package org.example.DTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.util.MultiValueMap;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -16,5 +16,7 @@ public class CinemaDTO {
     @NotNull
     private String name;
     @NotNull
-    private MultiValueMap<Long, List<Long>> mapOfAllFilmSessions;
+    private String city;
+    @NotNull
+    private Map<Long, List<Long>> mapOfAllFilmSessions;
 }

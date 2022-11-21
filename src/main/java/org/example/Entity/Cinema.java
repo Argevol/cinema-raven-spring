@@ -3,9 +3,9 @@ package org.example.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.util.MultiValueMap;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
@@ -13,5 +13,6 @@ import java.util.List;
 public class Cinema {
     private Long id;
     private String name;
-    private MultiValueMap<Long, List<Long>> mapOfAllFilmSessions;
+    private String city;
+    private Map<Long, List<Long>> mapOfAllFilmSessions;
 }

@@ -1,7 +1,6 @@
 package org.example.Service;
 
 import org.example.DTO.FilmDTO;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

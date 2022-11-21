@@ -1,16 +1,16 @@
 package org.example.Resource;
 
-import org.example.Service.UserCinemaService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.example.DTO.CinemaDTO;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.annotation.security.RolesAllowed;
 
 @RestController
-@RequestMapping("/api/v1/user")
-public class UserResource {
+@RequestMapping("/api/v1/admin")
+public class AdministratorResource {
     @GetMapping("/get")
     public String getCinemaById() {
         return "hello";

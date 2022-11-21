@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/hall")
+@RequestMapping("/api/v1/movie-session")
 public class MovieSessionResource {
     @Autowired
     private MovieSessionService movieSessionService;

@@ -1,8 +1,6 @@
 package org.example.Mapper;
 
-import org.example.DTO.FilmDTO;
 import org.example.DTO.MovieSessionDTO;
-import org.example.Entity.Film;
 import org.example.Entity.MovieSession;
 
 public class MovieSessionMapper {
