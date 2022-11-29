@@ -23,6 +23,11 @@ public class MovieSessionRepository {
     private List<MovieSession> movieSessions;
     private Long id = 0L;
 
+    /**
+     * Reading a file with saved movie sessions data
+     * @apiNote The method is called before starting the database.
+     * The program looks for the largest ID, from which the creation of future movie sessions begins
+     */
     @PostConstruct
     public void init() {
         final Path file = Paths.get("movie-sessions.txt");
@@ -47,6 +52,9 @@ public class MovieSessionRepository {
         }
     }
 
+    /**
+     * Write the data about the movie sessions that were created to the file
+     */
     @PreDestroy
     public void preDestroy() {
         final Path file = Paths.get("movie-sessions.txt");

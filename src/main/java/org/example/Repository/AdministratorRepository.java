@@ -24,6 +24,11 @@ public class AdministratorRepository {
     private List<Administrator> administrators;
     private Long id = 0L;
 
+    /**
+     * Reading a file with saved administrators data
+     * @apiNote The method is called before starting the database.
+     * The program looks for the largest ID, from which the creation of future administrators begins
+     */
     @PostConstruct
     public void init() {
         final Path file = Paths.get("administrators.txt");
@@ -48,6 +53,9 @@ public class AdministratorRepository {
         }
     }
 
+    /**
+     * Write the data about the administrators that were created to the file
+     */
     @PreDestroy
     public void preDestroy() {
         final Path file = Paths.get("administrators.txt");

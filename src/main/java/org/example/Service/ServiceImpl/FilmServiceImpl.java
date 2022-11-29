@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,13 +25,17 @@ public class FilmServiceImpl implements FilmService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public List<FilmDTO> getAllFilms(final String role, final String username, final String password) {
-        if (!role.equals("USER") && !role.equals("ADMIN")){
+        if (!role.equalsIgnoreCase("USER") && !role.equalsIgnoreCase("ADMIN")){
             throw new ServiceException(400, "invalid role");
         }
 
-        if (role.toUpperCase().equals("USER")){
+        if (role.equalsIgnoreCase("USER")){
             final User user = userRepository.getUserByUsername(username);
 
             if (!user.getPassword().equals(password)) {
@@ -40,7 +43,7 @@ public class FilmServiceImpl implements FilmService {
             }
         }
 
-        if (role.toUpperCase().equals("ADMIN")){
+        if (role.equalsIgnoreCase("ADMIN")){
             final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
 
             if (!administrator.getPassword().equals(password)) {
@@ -53,31 +56,39 @@ public class FilmServiceImpl implements FilmService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public FilmDTO getFilmById(final String role, final String username, final String password, final Long id) {
-        if (!role.equals("USER") && !role.equals("ADMIN")){
+        if (!role.equalsIgnoreCase("USER") && !role.equalsIgnoreCase("ADMIN")){
             throw new ServiceException(400, "invalid role");
         }
 
-       if (role.toUpperCase().equals("USER")){
-           final User user = userRepository.getUserByUsername(username);
+        if (role.equalsIgnoreCase("USER")){
+            final User user = userRepository.getUserByUsername(username);
 
-           if (!user.getPassword().equals(password)) {
-               throw new ServiceException(400, "wrong access key");
-           }
-       }
+            if (!user.getPassword().equals(password)) {
+                throw new ServiceException(400, "wrong access key");
+            }
+        }
 
-       if (role.toUpperCase().equals("ADMIN")){
-           final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
+        if (role.equalsIgnoreCase("ADMIN")){
+            final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
 
-           if (!administrator.getPassword().equals(password)) {
-               throw new ServiceException(400, "wrong password");
-           }
-       }
+            if (!administrator.getPassword().equals(password)) {
+                throw new ServiceException(400, "wrong password");
+            }
+        }
 
         return FilmMapper.toDTO(filmRepository.getFilmById(id));
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public void deleteFilmById(final String username, final String accessKey, final Long id) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
@@ -89,6 +100,11 @@ public class FilmServiceImpl implements FilmService {
         filmRepository.deleteFilmById(id);
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     * and bad requests
+     */
     @Override
     public FilmDTO updateAllFilm(final String username, final String accessKey, final FilmDTO filmDTO) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
@@ -104,6 +120,11 @@ public class FilmServiceImpl implements FilmService {
         return FilmMapper.toDTO(filmRepository.updateAllFilm(FilmMapper.toEntity(filmDTO)));
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     * and bad requests
+     */
     @Override
     public FilmDTO saveFilm(final String username, final String accessKey, final FilmDTO filmDTO) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);

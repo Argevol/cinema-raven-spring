@@ -30,13 +30,17 @@ public class CinemaServiceImpl implements CinemaService {
     private UserRepository userRepository;
 
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public List<CinemaDTO> getAllCinemas(final String role, final String username, final String password) {
-        if (!role.equals("USER") && !role.equals("ADMIN")){
+        if (!role.equalsIgnoreCase("USER") && !role.equalsIgnoreCase("ADMIN")){
             throw new ServiceException(400, "invalid role");
         }
 
-        if (role.toUpperCase().equals("USER")){
+        if (role.equalsIgnoreCase("USER")){
             final User user = userRepository.getUserByUsername(username);
 
             if (!user.getPassword().equals(password)) {
@@ -44,7 +48,7 @@ public class CinemaServiceImpl implements CinemaService {
             }
         }
 
-        if (role.toUpperCase().equals("ADMIN")){
+        if (role.equalsIgnoreCase("ADMIN")){
             final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
 
             if (!administrator.getPassword().equals(password)) {
@@ -57,13 +61,17 @@ public class CinemaServiceImpl implements CinemaService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public CinemaDTO getCinemaById(final String role, final String username, final String password, final Long id) {
-        if (!role.equals("USER") && !role.equals("ADMIN")){
+        if (!role.equalsIgnoreCase("USER") && !role.equalsIgnoreCase("ADMIN")){
             throw new ServiceException(400, "invalid role");
         }
 
-        if (role.toUpperCase().equals("USER")){
+        if (role.equalsIgnoreCase("USER")){
             final User user = userRepository.getUserByUsername(username);
 
             if (!user.getPassword().equals(password)) {
@@ -71,7 +79,7 @@ public class CinemaServiceImpl implements CinemaService {
             }
         }
 
-        if (role.toUpperCase().equals("ADMIN")){
+        if (role.equalsIgnoreCase("ADMIN")){
             final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
 
             if (!administrator.getPassword().equals(password)) {
@@ -82,6 +90,10 @@ public class CinemaServiceImpl implements CinemaService {
         return CinemaMapper.toDTO(cinemaRepository.getCinemaById(id));
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public void deleteCinemaById(final String username, final String accessKey, final Long id) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
@@ -93,6 +105,11 @@ public class CinemaServiceImpl implements CinemaService {
         cinemaRepository.deleteCinemaById(id);
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     * and bad requests
+     */
     @Override
     public CinemaDTO updateAllCinema(final String username, final String accessKey, final CinemaDTO cinemaDTO) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
@@ -108,6 +125,11 @@ public class CinemaServiceImpl implements CinemaService {
         return CinemaMapper.toDTO(cinemaRepository.updateAllCinema(CinemaMapper.toEntity(cinemaDTO)));
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     * and bad requests
+     */
     @Override
     public CinemaDTO saveCinema(final String username, final String accessKey, final CinemaDTO cinemaDTO) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);

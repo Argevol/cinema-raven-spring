@@ -20,6 +20,10 @@ public class GuestServiceImpl implements GuestService {
     @Autowired
     private AdministratorRepository administratorRepository;
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to bad requests
+     */
     @Override
     public UserDTO authorizeAsUser(final UserDTO userDTO) {
         final User user = UserMapper.toEntity(userDTO);
@@ -36,6 +40,10 @@ public class GuestServiceImpl implements GuestService {
         return UserMapper.toDTO(user);
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to bad requests
+     */
     @Override
     public AdministratorDTO authorizeAsAdministrator(final AdministratorDTO administratorDTO) {
         final Administrator administrator = AdministratorMapper.toEntity(administratorDTO);

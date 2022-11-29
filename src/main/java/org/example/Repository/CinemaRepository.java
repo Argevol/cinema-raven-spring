@@ -22,6 +22,11 @@ public class CinemaRepository {
     private List<Cinema> cinemas;
     private Long id = 0L;
 
+    /**
+     * Reading a file with saved cinemas data
+     * @apiNote The method is called before starting the database.
+     * The program looks for the largest ID, from which the creation of future cinemas begins
+     */
     @PostConstruct
     public void init() {
         final Path file = Paths.get("cinemas.txt");
@@ -46,6 +51,9 @@ public class CinemaRepository {
         }
     }
 
+    /**
+     * Write the data about the cinemas that were created to the file
+     */
     @PreDestroy
     public void preDestroy() {
         final Path file = Paths.get("cinemas.txt");

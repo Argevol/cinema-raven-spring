@@ -22,6 +22,11 @@ public class FilmRepository {
     private List<Film> films;
     private Long id = 0L;
 
+    /**
+     * Reading a file with saved films data
+     * @apiNote The method is called before starting the database.
+     * The program looks for the largest ID, from which the creation of future films begins
+     */
     @PostConstruct
     public void init() {
         final Path file = Paths.get("films.txt");
@@ -46,6 +51,9 @@ public class FilmRepository {
         }
     }
 
+  /**
+     * Write the data about the films that were created to the file
+     */
     @PreDestroy
     public void preDestroy() {
         final Path file = Paths.get("films.txt");

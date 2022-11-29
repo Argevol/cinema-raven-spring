@@ -28,13 +28,17 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     @Autowired
     private UserRepository userRepository;
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public List<MovieSessionDTO> getAllMovieSessions(final String role, final String username, final String password) {
-        if (!role.equals("USER") && !role.equals("ADMIN")){
+        if (!role.equalsIgnoreCase("USER") && !role.equalsIgnoreCase("ADMIN")){
             throw new ServiceException(400, "invalid role");
         }
 
-        if (role.toUpperCase().equals("USER")){
+        if (role.equalsIgnoreCase("USER")){
             final User user = userRepository.getUserByUsername(username);
 
             if (!user.getPassword().equals(password)) {
@@ -42,7 +46,7 @@ public class MovieSessionServiceImpl implements MovieSessionService {
             }
         }
 
-        if (role.toUpperCase().equals("ADMIN")){
+        if (role.equalsIgnoreCase("ADMIN")){
             final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
 
             if (!administrator.getPassword().equals(password)) {
@@ -55,13 +59,17 @@ public class MovieSessionServiceImpl implements MovieSessionService {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public MovieSessionDTO getMovieSessionById(final String role, final String username, final String password, final Long id) {
-        if (!role.equals("USER") && !role.equals("ADMIN")){
+        if (!role.equalsIgnoreCase("USER") && !role.equalsIgnoreCase("ADMIN")){
             throw new ServiceException(400, "invalid role");
         }
 
-        if (role.toUpperCase().equals("USER")){
+        if (role.equalsIgnoreCase("USER")){
             final User user = userRepository.getUserByUsername(username);
 
             if (!user.getPassword().equals(password)) {
@@ -69,16 +77,21 @@ public class MovieSessionServiceImpl implements MovieSessionService {
             }
         }
 
-        if (role.toUpperCase().equals("ADMIN")){
+        if (role.equalsIgnoreCase("ADMIN")){
             final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
 
             if (!administrator.getPassword().equals(password)) {
                 throw new ServiceException(400, "wrong password");
             }
         }
+
         return MovieSessionMapper.toDTO(movieSessionRepository.getMovieSessionById(id));
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     */
     @Override
     public void deleteMovieSessionById(final String username, final String accessKey, final Long id) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
@@ -90,6 +103,11 @@ public class MovieSessionServiceImpl implements MovieSessionService {
         movieSessionRepository.deleteMovieSessionById(id);
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     * and bad requests
+     */
     @Override
     public MovieSessionDTO updateAllMovieSession(final String username, final String accessKey, final MovieSessionDTO movieSessionDTO) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);
@@ -107,6 +125,11 @@ public class MovieSessionServiceImpl implements MovieSessionService {
         return MovieSessionMapper.toDTO(movieSessionRepository.updateAllMovieSession(MovieSessionMapper.toEntity(movieSessionDTO)));
     }
 
+    /**
+     * @throws ServiceException request Exception
+     * @Note The method checks for exceptions related to access rights
+     * and bad requests
+     */
     @Override
     public MovieSessionDTO saveMovieSession(final String username, final String accessKey, final MovieSessionDTO movieSessionDTO) {
         final Administrator administrator = administratorRepository.getAdministratorByUsername(username);

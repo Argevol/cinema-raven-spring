@@ -24,6 +24,11 @@ public class UserRepository {
     private List<User> users;
     private Long id = 0L;
 
+    /**
+     * Reading a file with saved users data
+     * @apiNote The method is called before starting the database.
+     * The program looks for the largest ID, from which the creation of future users begins
+     */
     @PostConstruct
     public void init() {
         final Path file = Paths.get("users.txt");
@@ -48,6 +53,9 @@ public class UserRepository {
         }
     }
 
+    /**
+     * Write the data about the users that were created to the file
+     */
     @PreDestroy
     public void preDestroy() {
         final Path file = Paths.get("users.txt");
